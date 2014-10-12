@@ -1,0 +1,21 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Douglas Cockerham
+N:Cockerham;Douglas;;;
+EMAIL;TYPE=INTERNET;TYPE=WORK:douglas.cockerham@homes-store.com
+EMAIL;TYPE=INTERNET;TYPE=HOME:padretres@gmail.com
+TEL;TYPE=CELL:(813) 731-1457
+TEL;TYPE=WORK;TYPE=FAX:(863) 537-1073
+ORG:Homes Store
+TITLE:Chief Technologist & Real Estate Professional
+BDAY:1969-03-04
+URL:https\://plus.google.com/105604780577673558641
+URL:http\://www.linkedin.com/pub/douglas-cockerham/7/76b/187
+URL:http\://twitter.com/HomesStore
+item1.URL:https://plus.google.com/u/0/+Homes-Store/about
+item1.X-ABLabel:PROFILE
+item2.URL:http\://homes-store.com
+item2.X-ABLabel:_$!<HomePage>!$_
+item3.X-ABRELATEDNAMES:Kelly Cockerham
+item3.X-ABLabel:_$!<Spouse>!$_
+END:VCARD

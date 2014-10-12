@@ -1,0 +1,14 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Kelly Cockerham
+N:Cockerham;Kelly;;;
+EMAIL;TYPE=INTERNET;TYPE=WORK:kellycockerham@homes-store.com
+EMAIL;TYPE=INTERNET;TYPE=WORK:kellycockerham@remax.net
+TEL;TYPE=WORK;TYPE=FAX:(863) 537-1073
+TEL;TYPE=CELL:(813) 417-5428
+ORG:Homes Store
+TITLE:Chief Executive
+URL;TYPE=WORK:http\://homes-store.com
+URL;TYPE=WORK:http\://www.linkedin.com/in/kellycockerham/
+URL:https\://www.facebook.com/HomesStore
+END:VCARD

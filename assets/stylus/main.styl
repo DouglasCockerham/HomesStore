@@ -1,0 +1,178 @@
+@import 'nib'
+@import '_variables.styl'
+
+body
+  margin-top: 50px
+  //background-color: corpblue
+  font-family: copyFontFamily
+
+footer
+  font-size: .9em
+  //margin: 50px 0 50px 0
+  padding 50px 0 50px 0
+  p
+    font-family: footerFontFamily
+    font-size: .8em
+    text-align: center
+
+  .breadcrumb
+    background-color #333
+    border-top-left-radius: 0
+    border-top-right-radius: 0
+
+    a
+      color: #ffffff
+      &:hover
+        color: corpgreen
+        text-decoration: none
+
+  img
+    display: block
+    margin-left: auto
+    margin-right: auto
+
+  .dark-footer
+    background-color:rgba(0,0,0,0.6)
+    background-size: cover
+    color: white
+    border-radius: 20px
+
+.error
+  font-size: .8em
+  font-style: italic
+  color: red
+
+  // Custom icons
+  @font-face
+    font-family: 'icomoon'
+    src:url('../fonts/icomoon.eot?-9wx4w9')
+    src:url('../fonts/icomoon.eot?#iefix-9wx4w9') format('embedded-opentype'),
+    url('../fonts/icomoon.woff?-9wx4w9') format('woff'),
+    url('../fonts/icomoon.ttf?-9wx4w9') format('truetype'),
+    url('../fonts/icomoon.svg?-9wx4w9#icomoon') format('svg')
+    font-weight: normal
+    font-style: normal
+
+  [class^="icon-"], [class*=" icon-"]
+    font-family: 'icomoon'
+    speak: none
+    font-style: normal
+    font-weight: normal
+    font-variant: normal
+    text-transform: none
+    line-height: 1
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+
+  .icon-doug_checker:before {
+    content: "\e604"
+  }
+  .icon-doug_Bath:before {
+    content: "\e602";
+  }
+  .icon-doug_anchor:before {
+    content: "\e600";
+  }
+  .icon-doug_waves:before {
+    content: "\e603";
+  }
+  .icon-doug_Bed:before {
+    content: "\e601";
+  }
+
+#contact
+  background: url('../images/gray-tiles.jpg') no-repeat center center fixed
+  background-size:cover
+  font-family: copyFontFamily
+  padding-top 30px
+
+  h3
+    color: white
+  h5
+    color: #ccc
+
+  .page-header
+    margin: 0 0 20px 0
+    padding: 3px 0 3px 15px
+    background-color:rgba(0,0,0,0.6)
+
+    h1
+      color: ltblue
+
+    small
+      font-style: italic
+      font-size: .5em
+      color: white
+
+  table
+    background-color:rgba(0,0,0,0.6)
+    color: #ccc
+    border-radius: 10px
+
+    td
+      padding: 10px 10px 10px 20px
+
+  .linkedin-icon
+    color: linkedin-blue
+  .google-icon
+    color: google-red
+  .facebook-icon
+    color: darken(facebook-blue, 30%)
+  .twitter-icon
+    color: twitter-blue
+  .linkedin-icon:hover
+    color: darken(linkedin-blue, 30%)
+  .google-icon:hover
+    color: lighten(google-red, 30%)
+  .facebook-icon:hover
+    color: facebook-blue
+  .twitter-icon:hover
+    color: darken(twitter-blue, 30%)
+  .vCard
+    color: #888
+
+  .contact-form
+    background-color:rgba(0,0,0,0.6)
+    color: #ccc
+    padding: 20px
+    border-radius: 10px
+
+    .error
+      font-size: .8em
+      font-style: italic
+      color: corpgreen
+
+    form
+      border: solid corpblue thin
+      padding: 10px 10px 10px 10px
+      border-radius: 10px
+      background-color: corpblue
+      margin: 0 auto 0 auto
+      width: 95%
+      box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset
+
+      small
+        font-style: italic
+        font-weight: 200
+        font-size: .8em
+
+      input, textarea
+        background-color: ltltblue
+
+      ::-webkit-input-placeholder
+        color: lighten(#000000,80%)
+        font-family: Inconsolata
+        font-style: italic
+
+      ::-moz-placeholder
+        color: lighten(#000000,80%)
+        font-family: Inconsolata
+        font-style: italic
+
+      label
+        padding-top: 15px
+
+      button
+        margin: 10px 0 10px 18px
