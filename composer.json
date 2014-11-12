@@ -4,19 +4,23 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.2.*"
+		"laravel/framework": "4.2.*",
+        "dropbox/dropbox-sdk": "1.1.*",
+        "uservoice/uservoice": ">=0.0.6",
+		"facebook/php-sdk": "~3.2"
 	},
 	"autoload": {
 		"classmap": [
 			"app/commands",
 			"app/controllers",
-			"app/models",
+			"app/Models",
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"
 		],
         "files": [
-            "app/helpers.php"
+            "app/helpers.php",
+            "app/bindings.php"
         ],
         "psr-0": {
             "HomesStore": "app/"
@@ -40,6 +44,7 @@
 	},
 	"minimum-stability": "stable",
     "require-dev": {
-        "way/generators": "~2.0"
+        "way/generators": "~2.0",
+        "mockery/mockery": "dev-master@dev"
     }
 }

@@ -49,4 +49,13 @@
         {
             return $this->roles()->deattach($role);
         }
+
+        public function contact_methods() {
+            return $this->hasMany('contact_methods');
+        }
+
+        public function profiles()
+        {
+            return $this->hasMany('Profile');
+        }
     }

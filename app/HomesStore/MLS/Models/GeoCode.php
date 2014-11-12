@@ -1,14 +1,24 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: padretres
- * Date: 10/8/14
- * Time: 2:45 PM
- */
+<?php namespace HomesStore\MLS\Models;
 
-namespace HomesStore\MLS\Models;
+class GeoCode extends \Eloquent {
 
+    protected $guarded = array('sysid',
+                                'mls_number',
+                                'Latitude',
+                                'Longitude',
+                                'FormattedAddress',
+                                'Neighborhood',
+                                'Timestamp'
+    );
 
-class GeoCode {
+    protected $table        = 'GeoCode';
+    protected $primaryKey   = 'sysid';
+    public $incrementing    = false;
+    public $timestamps      = false;
+    protected $connection   = 'mysql_prod';
+
+    public function MLSData() {
+        return $this->belongsTo('MLSData','sysid','matrix_unique_id');
+    }
 
 }

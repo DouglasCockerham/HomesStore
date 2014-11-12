@@ -1,6 +1,6 @@
-<?php
+<?php namespace HomesStore\Admin\Controllers;
 
-class AdminController extends BaseController {
+class AdminController extends \BaseController {
 
     public function getContactMessages()
     {

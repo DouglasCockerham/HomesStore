@@ -1,6 +1,6 @@
-<?php
+<?php namespace HomesStore\Account\Controllers;
 
-use \HomesStore\Notifications;
+use \HomesStore\Notifications,View,BaseController,Redirect,Auth,Validator,Input,HomesStore\Notifications\Flash,User,Hash,Mail,URL;
 
 class AccountController extends BaseController {
 
@@ -25,33 +25,31 @@ class AccountController extends BaseController {
                     ->withInput();
         } else {
             // Create account
-            $email      = Input::get('email');
-            $firstname  = Input::get('firstname');
-            $lastname   = Input::get('lastname');
-            $password   = Input::get('password');
-            // Activation code
-            $code       = str_random(60);
-
-            $user = User::create(array(
-                'email'         => $email,
-                'name_first'    => $firstname,
-                'name_last'     => $lastname,
-                'password'      => Hash::make($password),
-                'code'          => $code,
-                'active'        => 0
-            ));
+            $email          = Input::get('email');
+            $firstname      = Input::get('firstname');
+            $lastname       = Input::get('lastname');
+            $password       = Input::get('password');
+            $code           = str_random(60);   //activation code
+            $user           = User::create(array(
+                                                'email'         => $email,
+                                                'name_first'    => $firstname,
+                                                'name_last'     => $lastname,
+                                                'password'      => Hash::make($password),
+                                                'code'          => $code,
+                                                'active'        => 0
+                                            ));
 
             if($user) {
 
                 // Send email
                 Mail::send('emails.auth.activate', array(
-                    'link'      => URL::route('account-activate', $code),
-                    'firstname' => $firstname
+                    'link'          => URL::route('account-activate', $code),
+                    'firstname'     => $firstname
                 ), function($message) use($user) {
                    $message->to($user->email, $user->firstanme)->subject('Activate your account');
                 });
                 return Redirect::home()
-                        ->with(Flash::success('Your account has been created.  Check your email for further instructions.  Thank you for joining us!'));
+                        ->with(Flash::success('Account created. Please check your email.', 'bottom'));
             }
 
         }
@@ -68,12 +66,12 @@ class AccountController extends BaseController {
             $user->code = '';
             if($user->save()) {
                 return Redirect::home()
-                        ->with(Flash::success('Your account is now active, please sign in and get started.'));
+                        ->with(Flash::success('Your account is now active.', 'bottom'));
             }
         }
 
         return Redirect::home()
-                ->with(Flash::error('We could not activate your account, please try again later.'));
+                ->with(Flash::error('We could not activate your account.'));
     }
 
     public function getSignIn() {
@@ -115,13 +113,13 @@ class AccountController extends BaseController {
                 return Redirect::intended('/');
             } else {
                 return Redirect::route('account-sign-in')
-                        ->with(Flash::error('Email/Password incorrect, or account not activated.'))
+                        ->with(Flash::error('Email/Password incorrect.','top'))
                         ->withInput();
             }
         }
 
         return Redirect::route('account-sign-in')
-                ->with(Flash::error('There was a problem signing you in.  Have you activated?'))
+                ->with(Flash::error('There was a problem signing you in. Have you activated?'))
                 ->withInput();
 
     }
@@ -134,11 +132,9 @@ class AccountController extends BaseController {
 
         $validator = Validator::make(Input::all(),
             array(
-
                 'oldPassword'       => 'required',
                 'newPassword'       => 'required|min:6',
                 'verifyPassword'    => 'required|same:newPassword'
-
             )
         );
 
@@ -157,11 +153,11 @@ class AccountController extends BaseController {
 
                 if($user->save()) {
                     return Redirect::home()
-                            ->with(Flash::success('Your account password was changed successfully.'));
+                            ->with(Flash::success('Your password has been changed.', 'bottom'));
                 }
             } else {
                 return Redirect::route('account-change-password')
-                    ->with(Flash::error('The old password given is incorrect.'));
+                    ->with(Flash::error('The old password is incorrect.'));
             }
 
         }
@@ -189,37 +185,30 @@ class AccountController extends BaseController {
             $user = User::where('email', '=', Input::get('email'));
 
             if($user->count()) {
-                $user = $user->first();
 
-                // generate a new code and password
-                $code       = str_random(60);
-                $generatedPassword   = str_random(10);
-
+                $user                   = $user->first();
+                $code                   = str_random(60);
+                $generatedPassword      = str_random(10);
                 $user->code             = $code;
                 $user->password_temp    = Hash::make($generatedPassword);
 
                 if($user->save()) {
-                    //Mail::send('emails.auth.forgot', array('url' => '', 'email' => $user->email));
                     Mail::send('emails.auth.forgot',
                         array(
-                            'link' => URL::route('account-recover', $code),
-                            'email' => $user->email,
-                            'newPassword' => $generatedPassword
+                            'link'          => URL::route('account-recover', $code),
+                            'email'         => $user->email,
+                            'newPassword'   => $generatedPassword
                         ),
                         function($message) use($user) {
                             $message->to($user->email, $user->firstanme)->subject('Password Reset');
                     });
                     return Redirect::home()
-                        ->with(Flash::success('Your password has been reset.  We have sent you an email with further instructions.'));
+                            ->with(Flash::success('Your password has been reset. Check your email.', 'bottom'));
                 }
-
             }
-
         }
-
         return Redirect::route('account-forgot-password')
                 ->with(Flash::error('Could not request new password.'));
-
     }
 
     public function getRecover($code) {
@@ -235,7 +224,7 @@ class AccountController extends BaseController {
 
             if($user->save()) {
                 return Redirect::home()
-                        ->with(Flash::success('Now you can sign in with your new password.'));
+                        ->with(Flash::success('Now you can sign in with your new password.', 'bottom'));
             }
         }
     }

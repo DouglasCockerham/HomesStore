@@ -56,6 +56,16 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="#">
+                                    <i class="fa fa-briefcase"></i> Portfolio
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-search-plus"></i> Saved Searches
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ URL::route('account-sign-out') }}">
                                     <i class="fa fa-sign-out"></i> Log Out
                                 </a>
@@ -73,6 +83,11 @@
                             <i class="fa fa-sign-in"></i> Log In
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ URL::route('account-create') }}">
+                            <i class="fa fa-pencil-square-o"></i> Sign Up
+                        </a>
+                    </li>
 
                 @endif
 
@@ -82,19 +97,3 @@
 
     </div>
 </nav>
-
-
-
-{{--<nav class="navbar navbar-fixed-top navbar-inverse">--}}
-    {{--<ul class="nav navbar-nav">--}}
-        {{--<li><a href="{{ URL::route('home') }}">Home</a></li>--}}
-        {{--<li><a href="{{ URL::route('account-change-password') }}">Change password</a></li>--}}
-        {{--@if(Auth::check())--}}
-            {{--<li><a href="{{ URL::route('account-sign-out') }}"><span class="icon-doug_Bath"></span> Sign Out</a></li>--}}
-        {{--@else--}}
-            {{--<li><a href="{{ URL::route('account-sign-in') }}">Sign In</a></li>--}}
-            {{--<li><a href="{{ URL::route('account-create') }}">Create an account</a></li>--}}
-            {{--<li><a href="{{ URL::route('account-forgot-password') }}">Forgot password</a></li>--}}
-        {{--@endif--}}
-    {{--</ul>--}}
-{{--</nav>--}}

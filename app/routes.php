@@ -1,5 +1,11 @@
 <?php
 
+use \HomesStore\Notifications\Flash;
+
+Route::get('support/create', 'SupportController@create');
+Route::post('support/store', 'SupportController@store');
+
+
 Route::get('/', array(
     'as'    => 'home',
     'uses'  => 'HomeController@home'
@@ -13,11 +19,17 @@ Route::get('contact', array(
 // Send Contact Message
 Route::post('sendContactMessage', array(
     'as'    => 'send-contact-message',
-    'uses'  => 'HomeController@postContactMessage'
+    'uses'  => 'ContactMessageController@postContactMessage'
 ));
 
 // Authenticated group
-Route::group(array('before' => 'auth'), function() {
+Route::group(array('before' => 'auth', 'namespace' => 'HomesStore\Account\Controllers'), function() {
+
+    if (Auth::user()) {
+        $user = Auth::user();
+        $user->last_active = new DateTime;
+        $user->save();
+    }
 
     // CSRF Protection Group
     Route::group(array('before' => 'csrf'), function() {
@@ -29,6 +41,10 @@ Route::group(array('before' => 'auth'), function() {
         ));
 
     });
+
+    Route::get('phpinfo', function() {
+        return 'doug' . phpinfo();
+    })->before('role:AppAdministator' || 'role:AppOwner');
 
     // Change password (GET)
     Route::get('/account/change-password', array(
@@ -51,7 +67,7 @@ Route::group(array('before' => 'auth'), function() {
 });
 
  // Unauthenticated group
-Route::group(array('before' => 'guest'), function() {
+Route::group(array('before' => 'guest', 'namespace' => 'HomesStore\Account\Controllers'), function() {
 
     // CSRF protection (cross-site request forgery) group
     Route::group(array('before' => 'csrf'), function() {
@@ -122,3 +138,52 @@ Route::group(array('before' => 'guest'), function() {
         'as'    => 'admin-report-monthly-solds',
         'uses'  => 'AdminController@getReport'
     ));
+
+    Route::post('/admin/reports/monthly_solds_rru', function()
+    {
+       return Input::get('dateFrom');
+    });
+
+    Route::get('/PropertyDetails/{MLSNumber}', array(
+        'as'    => 'PropertyDetails',
+        'uses'  => 'HomesStore\MLS\Controllers\MLSController@showAllFields'
+    ));
+
+    Route::get('/PropertyDetails/Civic/{MLSNumber}', array(
+        'as'    => 'PropertyDetails-Civic',
+        'uses'  => 'HomesStore\MLS\Controllers\MLSController@showCivicFields'
+    ));
+
+    Route::get('/PropertyDetails/Coorindates/{MLSNumber}', array(
+        'as'    => 'PropertyDetails-Coordinates',
+        'uses'  => 'HomesStore\MLS\Controllers\MLSController@showCoordinates'
+    ));
+
+    Route::get('login/fb', function() {
+        $facebook = new Facebook(Config::get('facebook'));
+        $params = array(
+            'appId'         => $_ENV('FACEBOOK_APP_ID'),
+            'secret'        => $_ENV('FACEBOOK_APP_SECRET'),
+            'redirect_uri'  => url('/login/fb/callback'),
+            'scope'         => 'email',
+        );
+
+        dd($params);
+
+        return Redirect::to($facebook->getLoginUrl($params));
+    });
+
+    Route::get('login/fb/callback', function() {
+        $code = Input::get('code');
+        if (strlen($code) == 0) return Redirect::to('/')->with(Flash::error('There was an error communicating with Facebook'));
+
+        $facebook = new Facebook(Config::get('facebook'));
+        $uid = $facebook->getUser();
+
+        if ($uid == 0) return Redirect::to('/')->with(Flash::error('There was an error'));
+
+        $me = $facebook->api('/me');
+
+        dd($me);
+
+    });

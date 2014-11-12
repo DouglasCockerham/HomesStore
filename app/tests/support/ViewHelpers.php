@@ -8,8 +8,6 @@ trait ViewHelpers {
      */
     protected function see($message, $scope='body')
     {
-        //$crawler = $this->client->getCrawler();
-
         $this->assertCount(
             1,
             $this->client->getCrawler()->filter("{$scope}:contains('{$message}')"),
@@ -23,8 +21,6 @@ trait ViewHelpers {
      */
     protected function notSee($message)
     {
-        //$crawler = $this->client->getCrawler();
-
         $this->assertCount(
             0,
             $this->client->getCrawler()->filter("body:contains('{$message}')"),

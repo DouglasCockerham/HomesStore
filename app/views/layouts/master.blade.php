@@ -26,11 +26,11 @@
     <body id=@yield('bodyId')>
         @include('layouts.partials._flash')
         @include('layouts.partials.navigation')
-        <div class="container">
+        <section class="container">
             <header>@yield('PageHeader')</header>
             @yield('PageContent')
             @include('layouts.partials.footer')
-        </div>
+        </section>
         <script src="/scripts/jquery.min.js"></script>
         <script src="/scripts/jquery-ui.min.js"></script>
         <script src="/scripts/bootstrap.min.js"></script>

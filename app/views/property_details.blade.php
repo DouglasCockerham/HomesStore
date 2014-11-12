@@ -6,13 +6,14 @@
 @section('bodyId')search
 @stop
 
+@section('PageHeader')
+
+@stop
+
 @section('PageContent')
 
-
-{{--{{ var_dump($MLSProperty) }}--}}
-
-    <ul>
-    @foreach($MLSPropertyField as $key => $value)
+    <ul style="list-style-type: none">
+    @foreach($MLSPropertyFields as $key => $value)
         <li>{{ $key . ':    ' . $value }}</li>
     @endforeach
     </ul>
